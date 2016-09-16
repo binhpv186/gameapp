@@ -1,0 +1,56 @@
+<h1>Category Manager </h1>
+<div class="divider"></div>
+<a class="waves-effect waves-light btn modal-trigger right" href="#modal1" style="margin: 20px 0;"> Add new<i class="material-icons right">add</i></a>
+<div class="divider clearfix"></div>
+<table>
+    <thead>
+    <tr>
+        <th data-field="id">ID</th>
+        <th data-field="title">Name</th>
+        <th data-field="slug">Slug</th>
+        <th data-field="action"></th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="x in categories">
+        <td>{{x.id}}</td>
+        <td>{{x.title}}</td>
+        <td>{{x.slug}}</td>
+        <td>
+            <button class="btn-floating btn-small waves-effect waves-light red"><i class="large material-icons">mode_edit</i>
+            </button>
+            <button class="btn-floating btn-small waves-effect waves-light orange" ng-click="deleteCategory(x.id)"><i
+                    class="large material-icons">delete</i></button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+    <div class="modal-content">
+        <h4>Add new Category</h4>
+        <form ng-submit="submitCategory()">
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="txttitle" name="txttitle" type="text" ng-model="form.title">
+                    <label for="txttitle">Category Title</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <input id="txtslug" name="txtslug" type="text" ng-model="form.slug">
+                    <label for="txtslug">Slug</label>
+                </div>
+            </div>
+            <button type="submit" id="submit" class="btn waves-effect waves-light">Submit<i class="material-icons right">send</i></button>
+        </form>
+    </div>
+</div>
+<script>
+    $(document).ready(function(){
+        // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
+        $('.modal-trigger').leanModal();
+    });
+</script>
