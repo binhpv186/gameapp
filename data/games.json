@@ -1,1 +1,12 @@
-["game-1", "game-2", "game-3"]
+[
+  {
+    "slug":"panda",
+    "title":"Pandalicius",
+    "desc":"Mo ta game panda"
+  },
+  {
+    "slug":"ninja-kid-vs-zombies",
+    "title":"Ninja Kid",
+    "desc":"Mo ta game Ninja Kid"
+  }
+]

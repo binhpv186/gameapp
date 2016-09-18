@@ -1,3 +1,13 @@
-<p>{{welcome}} to Detail page</p>
 <h1>{{item.title}}</h1>
-<h2>{{item.desc}}</h2>
+<iframe onload='resizeIframe(this)' ng-src="{{iframeSrc}}" width="100%"></iframe>
+<div class="section">
+    <a href="{{iframeSrc}}" target="_blank" class="btn btn-small waves-effect waves-light orange">Play in new window<i class="large material-icons right">tab</i></a>
+    <button class="btn btn-small waves-effect waves-light orange">Embed code<i class="large material-icons right">code</i></button>
+</div>
+<p>{{item.desc}}</p>
+<script type="text/javascript">
+    function resizeIframe(obj){
+        obj.style.height = 0;
+        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
+    }
+</script>
