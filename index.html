@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="gameapp">
 <head>
     <base href="/gameapp/">
     <!--Let browser know website is optimized for mobile-->
@@ -34,8 +34,13 @@
             </div>
         </nav>
     </div>
-<div class="container">
-    <div ng-view>Initializing data...</div>
+    <div class="container">
+        <div class="row">
+            <div class="col s12">
+                <div ng-view>Initializing data...</div>
+            </div>
+        </div>
+    </div>
     <footer class="page-footer">
         <div class="container">
             <div class="row">
@@ -61,7 +66,7 @@
             </div>
         </div>
     </footer>
-</div>
+
 <script src="assets/js/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="assets/js/materialize.min.js"></script>
 <script src="assets/js/angularjs/angular.min.js"></script>
@@ -70,40 +75,52 @@
 <!--<script src="js/components.js"></script>-->
 <script src="app/app.js"></script>
 <script>
-    (function() {
-        var err = false;
-
-        fetchData().then(bootstrapApplication);
-
-        function fetchData() {
-            try {
-                var initInjector = angular.injector(["ng"]);
-                var $http = initInjector.get("$http");
-
-                return $http.get("data/categories.json").then(function(response) {
-                    gameapp.constant("categories", response.data);
-                }, function(errorResponse) {
-                    err = true;
-                });
-            } catch (er) {
-
-            }
-
-        }
-
-        function bootstrapApplication() {
-            angular.element(document).ready(function() {
-                if(err) {
-
-                } else {
-//                    console.log('Start Bootrap');
-                    angular.bootstrap(document, ["gameapp"]);
-//                    console.log('End Bootrap');
-                }
-            });
-        }
-    }());
+//    (function() {
+//        var err = false;
+//
+//        fetchData().then(bootstrapApplication);
+//
+//        function fetchData() {
+//            try {
+//                var initInjector = angular.injector(["ng"]);
+//                var $http = initInjector.get("$http");
+//                var $rootScope = initInjector.get("$rootScope");
+//
+//                return $http.get("data/categories.json").then(function(response) {
+//                    if(angular.isObject(response)) {
+////                        $rootScope.categories = response.data;
+//                        gameapp.constant("categories", response.data);
+//                    }
+//                }, function(errorResponse) {
+//
+//                }).then(function () {
+//                    $http.get("data/games.json").then(function(response) {
+//                        if(angular.isObject(response)) {
+////                            $rootScope.games = response.data;
+////                            console.log('b');
+//                            gameapp.constant("games", response.data);
+//                        }
+//                    }, function(errorResponse) {
+//
+//                    });
+//                });
+//            } catch (er) {
+//                return false;
+//            }
+//        }
+//
+//        function bootstrapApplication() {
+//            angular.element(document).ready(function() {
+//                if(err) {
+//
+//                } else {
+////                    console.log('Start Bootrap');
+//                    angular.bootstrap(document, ["gameapp"]);
+////                    console.log('End Bootrap');
+//                }
+//            });
+//        }
+//    }());
 </script>
-
 </body>
 </html>
