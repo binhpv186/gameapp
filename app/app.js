@@ -39,6 +39,7 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
     console.log($routeParams.slug);
     $http.get('game/' + $routeParams.slug + '/info.json').success(function(res){
         $scope.item = res;
+        $scope.slug = $routeParams.slug;
     }).error(function (responseError) {
         $scope.item = {'title' : 'Error', 'desc' : 'Cannot load game data'};
     });
