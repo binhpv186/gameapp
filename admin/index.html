@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html ng-app="gameapp">
 <head>
     <base href="/gameapp/admin/">
     <meta charset="utf-8">
@@ -61,39 +61,6 @@
 <!--<script src="js/components.js"></script>-->
 <script src="app/app.js"></script>
 <script>
-    (function() {
-        var err = false;
-
-        fetchData().then(bootstrapApplication);
-
-        function fetchData() {
-            try {
-                var initInjector = angular.injector(["ng"]);
-                var $http = initInjector.get("$http");
-
-                return $http.get("../data/categories.json").then(function(response) {
-                    gameapp.constant("categories", response.data);
-                }, function(errorResponse) {
-                    err = true;
-                });
-            } catch (er) {
-
-            }
-
-        }
-
-        function bootstrapApplication() {
-            angular.element(document).ready(function() {
-                if(err) {
-
-                } else {
-//                    console.log('Start Bootrap');
-                    angular.bootstrap(document, ["gameapp"]);
-//                    console.log('End Bootrap');
-                }
-            });
-        }
-    }());
 </script>
 
 </body>

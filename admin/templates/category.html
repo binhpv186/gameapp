@@ -18,10 +18,8 @@
         <td>{{x.title}}</td>
         <td>{{x.slug}}</td>
         <td>
-            <button class="btn-floating btn-small waves-effect waves-light red"><i class="large material-icons">mode_edit</i>
-            </button>
-            <button class="btn-floating btn-small waves-effect waves-light orange" ng-click="deleteCategory(x.id)"><i
-                    class="large material-icons">delete</i></button>
+            <button class="btn-floating btn-small waves-effect waves-light red" ng-click="editCategory(x.id)"><i class="large material-icons">mode_edit</i></button>
+            <button class="btn-floating btn-small waves-effect waves-light orange" ng-click="deleteCategory(x.id)"><i class="large material-icons">delete</i></button>
         </td>
     </tr>
     </tbody>
@@ -32,15 +30,16 @@
     <div class="modal-content">
         <h4>Add new Category</h4>
         <form ng-submit="submitCategory()">
+            <input id="id" name="id" type="hidden" ng-model="form.id">
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="txttitle" name="txttitle" type="text" ng-model="form.title">
+                    <input placeholder="Placeholder" id="txttitle" name="txttitle" type="text" ng-model="form.title">
                     <label for="txttitle">Category Title</label>
                 </div>
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <input id="txtslug" name="txtslug" type="text" ng-model="form.slug">
+                    <input  placeholder="slug" id="txtslug" name="txtslug" type="text" ng-model="form.slug">
                     <label for="txtslug">Slug</label>
                 </div>
             </div>
@@ -51,6 +50,13 @@
 <script>
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
-        $('.modal-trigger').leanModal();
+        $('.modal-trigger').leanModal({
+            ready: function() {
+                alert('Ready');
+            },
+            complete: function() {
+                console.log('close');
+            }
+        });
     });
 </script>

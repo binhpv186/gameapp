@@ -20,31 +20,119 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
     })
     .otherwise({templateUrl:'templates/404.html'})
 })
-.run(function($rootScope, categories) {
-    $rootScope.categories = categories;
+.factory('GameData', function ($rootScope, $http, $httpParamSerializer, filterFilter) {
+    var data = {};
+
+    return {
+        init : function () {
+            $http.get("../data/categories.json").then(function(response) {
+                if(angular.isObject(response)) {
+                    var cats = [];
+                    angular.forEach(response.data.data, function (value, index) {
+                        cats.push({id:index,title:value.title,slug:value.slug});
+                    });
+                    $rootScope.categories = cats;
+                    data.categories = cats;
+                } else {
+                    return false;
+                }
+            }, function(errorResponse) {
+                return false;
+            });
+            $http.get("data/games.json").then(function(response) {
+                if(angular.isObject(response)) {
+                    var games = [];
+                    angular.forEach(response.data.data, function (value, index) {
+                        games.push({id:index,title:value.title,slug:value.slug,category:value.category});
+                    });
+                    data.games = games;
+                } else {
+                    return false;
+                }
+            }, function(errorResponse) {
+                return false;
+            });
+            return true;
+        },
+
+        listCategory : function () {
+            return data.categories;
+        },
+
+        listAllGame : function () {
+            return data.games;
+        },
+
+        getGame : function (game) {
+            var games = filterFilter(data.games, {slug: game});
+            if(games != undefined && games.length > 0) {
+                return games[0];
+            } else {
+                return false;
+            }
+        },
+
+        getCategory : function (id) {
+            var cat = filterFilter(data.categories, {id: id});
+            var returnData = {title:'Not found!',games:[]};
+            if(cat != undefined) {
+                var returnData = {id:cat[0].id,title:cat[0].title,slug:cat[0].slug};
+            }
+            return returnData;
+        },
+        saveCategory : function (postdata) {
+            return $http.post('lib/add_category.php', $httpParamSerializer(postdata), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function (response) {
+                if(response.data.error == false) {
+                    var method = response.data.method;
+                    if(method == 'add') {
+                        data.categories.push(response.data.data);
+                    }
+                } else {
+
+                }
+                return !response.data.error;
+            }, function(errorResponse) {
+                return false;
+            });
+        }
+    }
+})
+.run(function($rootScope, GameData) {
+    var init = GameData.init();
+    if(init) {
+        console.log('init ok');
+    } else {
+        console.log('init false');
+    }
 })
 .controller('Main', function($scope, $http, $routeParams) {
     $scope.title = 'Game App';
     $scope.welcome = 'Welcome you';
     document.querySelector('title').innerHTML = 'Game App';
 })
-.controller('Category', function($rootScope, $scope, $http, $httpParamSerializer, orderByFilter, filterFilter) {
+.controller('Category', function($rootScope, $scope, $http, $httpParamSerializer, orderByFilter, filterFilter, GameData) {
+    $scope.categories = GameData.listCategory();
     $scope.submitCategory = function () {
-        var lastCategory = orderByFilter($rootScope.categories, '-id')[0];
-        $scope.form.id = parseInt(lastCategory.id)+1;
         $http.post('lib/add_category.php', $httpParamSerializer($scope.form), {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function (response) {
             if(response.data.error == false) {
-                $rootScope.categories.push($scope.form);
-                console.log($rootScope.categories);
+                var method = response.data.method;
+                if(method == 'add') {
+                    $scope.categories.push(response.data.data);
+                }
                 $scope.form = angular.copy({});
                 $('#modal1').closeModal();
             } else {
 
             }
+        }, function(errorResponse) {
+            return false;
         });
     }
-    $scope.editCategory = function () {
-
+    $scope.editCategory = function (id) {
+        var game = GameData.getCategory(id);
+        $scope.form = angular.copy(game);
+        $('#modal1').openModal();
+        Materialize.updateTextFields();
     }
     $scope.deleteCategory = function (categoryId) {
         $http.post('lib/delete_category.php', 'id='+categoryId, {headers: {'Content-Type': 'application/x-www-form-urlencoded'}}).then(function (response) {

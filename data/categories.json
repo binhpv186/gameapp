@@ -1,1 +1,29 @@
-[{"id":"3","title":"Category 3","slug":"category-3"},{"id":"4","title":"Category 4","slug":"category-4"}]
+{
+    "index": 30,
+    "data": {
+        "1": {
+            "title": "Arcade",
+            "slug": "arcade"
+        },
+        "2": {
+            "title": "Puzzle",
+            "slug": "puzzle"
+        },
+        "3": {
+            "title": "Casual",
+            "slug": "casual"
+        },
+        "4": {
+            "title": "Sports",
+            "slug": "sports"
+        },
+        "5": {
+            "title": "Classics",
+            "slug": "classics"
+        },
+        "6": {
+            "title": "Pets",
+            "slug": "pets"
+        }
+    }
+}

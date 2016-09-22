@@ -1,13 +1,8 @@
 <h1>{{item.title}}</h1>
-<iframe onload='resizeIframe(this)' ng-src="{{iframeSrc}}" width="100%"></iframe>
+<iframe id="gameplay" ng-init="resizeIframe('gameplay')" ng-src="{{iframeSrc}}" style="width:100%;min-height: 500px;"></iframe>
 <div class="section">
+    <button ng-click="fullScreen('gameplay')" class="btn btn-small waves-effect waves-light orange">Fullscreen<i class="large material-icons right">aspect_ratio</i></button>
     <a href="{{iframeSrc}}" target="_blank" class="btn btn-small waves-effect waves-light orange">Play in new window<i class="large material-icons right">tab</i></a>
     <button class="btn btn-small waves-effect waves-light orange">Embed code<i class="large material-icons right">code</i></button>
 </div>
 <p>{{item.desc}}</p>
-<script type="text/javascript">
-    function resizeIframe(obj){
-        obj.style.height = 0;
-        obj.style.height = obj.contentWindow.document.body.scrollHeight + 'px';
-    }
-</script>

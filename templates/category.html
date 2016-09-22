@@ -1,2 +1,13 @@
-<h1>{{title}}</h1>
-<p>{{welcome}} to Category page</p>
+<h1>{{data.title}}</h1>
+<div class="row category-item">
+    <div class="col s6 m2 game-item" ng-repeat="item in data.games">
+        <div class="z-depth-1">
+            <div class="item-image">
+                <a href="{{item.slug}}.html"><img src="game/{{item.slug}}/thumb.jpg" alt="{{item.title}}" title="{{item.title}}"></a>
+            </div>
+            <div class="item-content">
+                <a href="{{item.slug}}.html" class="item-name" title="{{item.title}}"><span>{{item.title}}</span></a>
+            </div>
+        </div>
+    </div>
+</div>
