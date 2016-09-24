@@ -38,10 +38,16 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
             $http.get("data/games.json").then(function(response) {
                 if(angular.isObject(response)) {
                     var games = [];
+                    var autocompletedata = new Object();
                     angular.forEach(response.data.data, function (value, index) {
                         games.push({id:index,title:value.title,slug:value.slug,category:value.category});
+                        autocompletedata[value.title] = {link:value.slug + '.html',img:'game/' + value.slug + '/thumb.jpg'};
                     });
                     data.games = games;
+
+                    $('input.autocomplete').autocomplete({
+                        data: autocompletedata
+                    });
                 } else {
                     return false;
                 }
@@ -81,7 +87,6 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
                 }
 
             }
-            console.log(returnData);
             return returnData;
         }
     }
@@ -104,10 +109,16 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
     $scope.title = 'PGame - Play game HTML5';
     document.querySelector('title').innerHTML = 'PGame - Play game HTML5 for free';
 })
-.controller('Category', function($rootScope, $scope, $http, $routeParams, filterFilter, GameData) {
+.controller('Category', function($rootScope, $scope, $routeParams, $location, GameData) {
     var data = GameData.getCategory($routeParams.slug);
     $scope.data = data;
-    document.querySelector('title').innerHTML = data.title;
+    $scope.$parent.path = $location.path();
+    $scope.$parent.isActive = function (viewLocation) {
+        var active = (viewLocation === $location.path());
+        return active;
+    };
+    $scope.$parent.metatitle = data.title + ' Games - PGAMES';
+    // document.querySelector('title').innerHTML = data.title;
 })
 .controller('Detail', function($scope, $routeParams, $location, $anchorScroll, GameData, $sce) {
     var game = GameData.getGame($routeParams.slug);
