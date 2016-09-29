@@ -1,6 +1,7 @@
 <?php
 return array(
     'router' => array(
-        '/:slug' => 'IndexController\\IndexAction'
+        '/<slug:\w+>/<id:\d+>' => 'index\\index',
+        '/<controller>' => 'index\\hehe'
     )
 );

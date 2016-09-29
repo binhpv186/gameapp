@@ -14,7 +14,9 @@ class Request
         }
     }
 
-    public function getRoute()
+    
+
+    public function getPathInfo()
     {
         return trim($_SERVER['REQUEST_URI'], $this->getBaseUrl());
     }
@@ -22,7 +24,7 @@ class Request
     public function getBaseUrl()
     {
         if ($this->_baseUrl === null) {
-            $this->_baseUrl = rtrim(dirname($this->getScriptUrl()), '\\/');
+            $this->_baseUrl = rtrim(dirname($this->getScriptUrl()), '\/');
         }
 
         return $this->_baseUrl;

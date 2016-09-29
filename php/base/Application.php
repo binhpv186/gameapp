@@ -1,10 +1,12 @@
 <?php
 namespace base;
 
-use base\Request;
+use App;
 class Application
 {
-    protected $request;
+    public static $app;
+
+    public $request;
 
     protected $router;
 
@@ -16,26 +18,25 @@ class Application
     {
         $this->request = new Request();
         $this->router = new Router();
+        App::$app = $this;
     }
 
     public function run()
     {
-//        echo $this->getBaseUrl() . '<br/>';
-//        echo $_GET['url'] . '<br/>';
-        $route = $this->getRoute();
-//        echo APP_PATH;
-        $controller_file = APP_PATH . 'controllers/'.ucfirst($route[0]).'Controller.php';
+        $this->router->parseRoute($this->request);
+        $controller_file = APP_PATH . 'controllers/'.$this->router->getController().'.php';
         if(file_exists($controller_file)) {
-//            echo $controller_file;
-            $controller_name = 'app\controllers\\'.ucfirst($route[0]).'Controller';
+            $controller_name = 'app\controllers\\'.$this->router->getController();
+            $action_name = $this->router->getAction().'Action';
             $controller = new $controller_name;
-            if(method_exists($controller, ucfirst($route[1]).'Action')) {
-                call_user_func(array($controller, ucfirst($route[1]).'Action'));
+            if(method_exists($controller, $action_name)) {
+                $this->request->params = $this->router->getParams();
+                call_user_func(array($controller, $action_name));
             } else {
-//                echo 2;
+                echo 2;
             }
         } else {
-//            echo 3;
+            echo 3;
         }
 
 //        var_dump($this->getRoute());
@@ -46,8 +47,8 @@ class Application
         return $this->request->getBaseUrl();
     }
 
-    public function getRoute()
+    public function getRouter()
     {
-        return $this->request->parseUrl();
+        return $this->router;
     }
 }
