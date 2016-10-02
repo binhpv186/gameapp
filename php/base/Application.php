@@ -23,20 +23,22 @@ class Application
 
     public function run()
     {
-        $this->router->parseRoute($this->request);
-        $controller_file = APP_PATH . 'controllers/'.$this->router->getController().'.php';
-        if(file_exists($controller_file)) {
-            $controller_name = 'app\controllers\\'.$this->router->getController();
-            $action_name = $this->router->getAction().'Action';
-            $controller = new $controller_name;
-            if(method_exists($controller, $action_name)) {
-                $this->request->params = $this->router->getParams();
-                call_user_func(array($controller, $action_name));
+        try {
+            $this->router->parseRoute($this->request);
+            $controller =  'app\\controllers\\'. str_replace('Controller', '', $this->router->getController()).'Controller';
+            if(class_exists($controller)) {
+                $action_name = $this->router->getAction().'Action';
+                $controller = new $controller;
+                if(method_exists($controller, $action_name)) {
+                    call_user_func(array($controller, $action_name));
+                } else {
+                    throw new \Exception('Action Not Found!', 404);
+                }
             } else {
-                echo 2;
+                throw new \Exception('Controller Not Found!', 404);
             }
-        } else {
-            echo 3;
+        } catch (\Exception $e) {
+            echo $e->getMessage();
         }
 
 //        var_dump($this->getRoute());

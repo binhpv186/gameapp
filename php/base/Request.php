@@ -7,6 +7,37 @@ class Request
 
     private $_scriptUrl;
 
+    private $_params = array();
+
+    public function __construct()
+    {
+        $query_str = explode('?', $_SERVER['REQUEST_URI']);
+        $query_str = isset($query_str[1]) ? $query_str[1] : '';
+        parse_str($query_str, $query_arr);
+        if(is_array($query_arr)) {
+            $this->setParams($query_arr);
+        }
+    }
+
+    public function setParams(Array $params)
+    {
+        $this->_params = array_merge($this->_params, $params);
+    }
+
+    public function getParams()
+    {
+        return $this->_params;
+    }
+
+    public function getParam($name, $default = null)
+    {
+        if(isset($this->_params[$name])) {
+            return $this->_params[$name];
+        } else {
+            return $default;
+        }
+    }
+
     public function parseUrl()
     {
         if(isset($_GET['url'])) {
@@ -14,11 +45,21 @@ class Request
         }
     }
 
-    
+    public function getMethod()
+    {
+        return isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
+    }
 
     public function getPathInfo()
     {
-        return trim($_SERVER['REQUEST_URI'], $this->getBaseUrl());
+        $pathInfo = '';
+        if(isset($_SERVER['REDIRECT_URL'])) {
+            $pathInfo = $_SERVER['REDIRECT_URL'];
+        } else {
+            $pathInfo = explode('?', $_SERVER['REQUEST_URI']);
+            $pathInfo = $pathInfo[0];
+        }
+        return trim(str_replace($this->getBaseUrl(), '', $pathInfo), '/');
     }
 
     public function getBaseUrl()

@@ -12,13 +12,23 @@ class View
 
     }
 
-    public function render($fileView, $data)
+    public function render($fileView, $data = null)
     {
         ob_start();
-		extract($data);
+        if(is_array($data)) {
+            extract($data);
+        }
         require(APP_PATH . 'views/' . $fileView . '.php');
 		$content = ob_get_clean()."\n";
         require_once APP_PATH . 'templates/' . $this->_theme . '/' . $this->layout . '.php';
+    }
+
+    public function renderPartial($fileView, $data = null)
+    {
+        if(is_array($data)) {
+            extract($data);
+        }
+        require_once(APP_PATH . 'views/' . $fileView . '.php');
     }
 
     public function setTheme($theme = '')

@@ -1,7 +1,7 @@
 <?php
 return array(
     'router' => array(
-        '/<slug:\w+>/<id:\d+>' => 'index\\index',
-        '/<controller>' => 'index\\hehe'
+        '/<slug:[A-Za-z0-9_-]*>/<id:\d+>' => 'GET,POST Index\\Index',
+        '/contact' => 'Index\\Contact'
     )
 );

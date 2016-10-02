@@ -3,9 +3,11 @@ namespace base;
 
 class Router
 {
-    protected $controller;
+    private $_controller;
 
-    protected $action;
+    private $_action;
+
+    private $_method;
 
     protected $_routeParams = array();
 
@@ -19,7 +21,7 @@ class Router
         }
         $r = array();
         foreach ($rules as $k => $v) {
-            $m = str_replace('/', '\/', trim(preg_replace('/\<(\w+)[:]*([^\>]*)\>/', "(?P<$1>$2)", $k), '/'));
+            $m = str_replace('/', '\/', trim(preg_replace('/\<(\w+)[:]*([^\>]*)\>/', "(?<$1>$2)", $k), '/'));
             $r[$m] = $v;
         }
         $this->_rules = $r;
@@ -30,7 +32,7 @@ class Router
      */
     public function getController()
     {
-        return $this->controller;
+        return $this->_controller;
     }
 
     /**
@@ -38,7 +40,7 @@ class Router
      */
     public function setController($controller)
     {
-        $this->controller = $controller;
+        $this->_controller = $controller;
     }
 
     /**
@@ -46,7 +48,7 @@ class Router
      */
     public function getAction()
     {
-        return $this->action;
+        return $this->_action;
     }
 
     /**
@@ -54,7 +56,7 @@ class Router
      */
     public function setAction($action)
     {
-        $this->action = $action;
+        $this->_action = $action;
     }
 
     public function getParams()
@@ -70,23 +72,70 @@ class Router
     public function parseRoute(Request $request)
     {
         $pathInfo = $request->getPathInfo();
-        var_dump($this->_rules);
+
+        //Defined Routes
         foreach ($this->_rules as $name => $route) {
-            var_dump($name);
-            echo $pathInfo;
-            $pattern = "/^$name/";
-            var_dump($pattern);
-            if(preg_match($pattern, $pathInfo, $matches)) {
-                $this->controller = dirname($route);
-                $this->action = basename($route);
-                foreach ($matches as $i=>$v) {
-                    if(!is_numeric($i)) {
-                        $this->_routeParams[$i] = $v;
-                    }
+            if(preg_match("/^$name/", $pathInfo, $matches)) {
+                $route = explode(' ', $route);
+                if(count($route) == 2) {
+                    $method = explode(',', $route[0]);
+                    $route = $route[1];
+                } elseif (count($route) == 1) {
+                    $method = array('GET');
+                    $route = $route[0];
+                } else {
+                    throw new \Exception('Config routes error');
                 }
-            } else {
-                echo 2;
+
+                if(in_array($request->getMethod(), $method)) {
+                    $this->_controller = dirname($route);
+                    $this->_action = basename($route);
+                    $param = array();
+                    foreach ($matches as $i=>$v) {
+                        if(!is_numeric($i)) {
+                            $param[$i] = $v;
+                        }
+                    }
+                    if(!empty($param)) {
+                        $request->setParams($param);
+                    }
+                } else {
+                    throw new \Exception('Not access', 503);
+                }
+                return;
             }
+        }
+
+        //Default Routes
+        //Example: Controller/Controller/action/param1/value1/param2/value2/param3/value3/...
+
+        $matched = false;
+        $uri = str_replace('/', '\\', $pathInfo);
+        while($matched === false && $uri !== 'app\\controllers\\.') {
+            $controller =  'app\\controllers\\' . dirname($uri);
+            if(file_exists(str_replace(array('\\', '/'), DS, ROOT . $controller . '.php'))) {
+                $this->_controller = dirname($uri) . 'Controller';
+                $this->_action = basename($uri);
+                $param_str = trim(str_replace(str_replace('\\', '/', $uri), '', $pathInfo), '/');
+                $param_arr = explode('/', $param_str);
+                $param = array();
+                while (isset($param_arr[0]) && isset($param_arr[1])) {
+                    $param[$param_arr[0]] = $param_arr[1];
+                    $param_arr = array_slice($param_arr, 2);
+                }
+                if(!empty($param)) {
+                    $request->setParams($param);
+                }
+                $matched = true;
+            } else {
+                $uri =  dirname($uri);
+            }
+        }
+
+        if($matched === true) {
+            return;
+        } else {
+            throw new \Exception('Not Found', 404);
         }
     }
 }

@@ -1,4 +1,9 @@
 <?php
+
+defined('DS') or define('DS', DIRECTORY_SEPARATOR);
+
+defined('ROOT') or define('ROOT', dirname(__FILE__) . '/');
+
 defined('BASE_PATH') or define('BASE_PATH', dirname(__FILE__) . '/base/');
 
 defined('APP_PATH') or define('APP_PATH', dirname(__FILE__) . '/app/');
@@ -14,4 +19,3 @@ class App extends base\Application {
 }
 $app = new App($config);
 $app->run();
-
