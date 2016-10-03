@@ -1,0 +1,29 @@
+{
+    "index": 30,
+    "data": {
+        "1": {
+            "title": "Arcade",
+            "slug": "arcade"
+        },
+        "2": {
+            "title": "Puzzle",
+            "slug": "puzzle"
+        },
+        "3": {
+            "title": "Casual",
+            "slug": "casual"
+        },
+        "4": {
+            "title": "Sports",
+            "slug": "sports"
+        },
+        "5": {
+            "title": "Classics",
+            "slug": "classics"
+        },
+        "6": {
+            "title": "Pets",
+            "slug": "pets"
+        }
+    }
+}

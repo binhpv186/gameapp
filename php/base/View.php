@@ -7,6 +7,8 @@ class View
 
     protected $layout = 'index';
 
+    public $title = '123';
+
     public function __construct()
     {
 
@@ -39,5 +41,10 @@ class View
     public function setLayout($layout = '')
     {
         $this->_layout = $layout;
+    }
+
+    public function getTemplatePath()
+    {
+        return \App::$app->getBaseUrl() . '/app/templates/'. $this->_theme;
     }
 }

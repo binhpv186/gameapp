@@ -1,11 +1,8 @@
 <?php
 namespace base;
 
-use App;
 class Application
 {
-    public static $app;
-
     public $request;
 
     protected $router;
@@ -18,7 +15,6 @@ class Application
     {
         $this->request = new Request();
         $this->router = new Router();
-        App::$app = $this;
     }
 
     public function run()

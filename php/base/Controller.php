@@ -9,17 +9,19 @@ class Controller
 
     public function __construct()
     {
-        $this->view = new View();
+//        $this->view = new View();
     }
 
     public function render($fileView, $option = null)
     {
-        return $this->view->render($fileView, $option);
+        $view = new View();
+        return $view->render($fileView, $option);
     }
 
     public function renderPartial($fileView, $option = null)
     {
-        return $this->view->renderPartial($fileView, $option);
+        $view = new View();
+        return $view->renderPartial($fileView, $option);
     }
 
     public function getRequest()

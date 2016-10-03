@@ -3,9 +3,9 @@ namespace base;
 
 class Router
 {
-    private $_controller;
+    private $_controller = 'index';
 
-    private $_action;
+    private $_action = 'index';
 
     private $_method;
 
@@ -73,6 +73,10 @@ class Router
     {
         $pathInfo = $request->getPathInfo();
 
+        if($pathInfo == '') {
+            return;
+        }
+
         //Defined Routes
         foreach ($this->_rules as $name => $route) {
             if(preg_match("/^$name/", $pathInfo, $matches)) {
@@ -111,7 +115,7 @@ class Router
 
         $matched = false;
         $uri = str_replace('/', '\\', $pathInfo);
-        while($matched === false && $uri !== 'app\\controllers\\.') {
+        while($matched === false && $uri !== 'app\\controllers\\.' && $uri != '') {
             $controller =  'app\\controllers\\' . dirname($uri);
             if(file_exists(str_replace(array('\\', '/'), DS, ROOT . $controller . '.php'))) {
                 $this->_controller = dirname($uri) . 'Controller';

@@ -12,10 +12,15 @@ class Config
 
     public static function get($name)
     {
-        if(isset(static::$_config[$name])) {
-            return static::$_config[$name];
-        } else {
-            return false;
+        $name = explode('.', $name);
+        $config = static::$_config;
+        foreach ($name as $section) {
+            if(isset($config[$section])) {
+                $config = $config[$section];
+            } else {
+                return false;
+            }
         }
+        return $config;
     }
 }
