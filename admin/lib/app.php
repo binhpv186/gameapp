@@ -14,6 +14,8 @@ class Common
 
 class User
 {
+    protected $_username = 'binhpv';
+
     protected $_password = '123456';
 
     protected $_password_salt;
@@ -23,17 +25,21 @@ class User
         $this->setPasswordSalt(Common::getRandomKey(22));
     }
 
-    public function login($password)
+    public function login($username, $password)
     {
-        $password_hash = crypt($this->_password, '$2a$07$'.$this->getPasswordSalt().'$');
-        $input_hash = crypt($password, '$2a$07$'.$this->getPasswordSalt().'$');
+        if($this->_username == $username) {
+            $password_hash = crypt($this->_password, '$2a$07$' . $this->getPasswordSalt() . '$');
+            $input_hash = crypt($password, '$2a$07$' . $this->getPasswordSalt() . '$');
 
-        if ($password_hash == $input_hash) {
-            $token_login = base64_encode(Common::getRandomKey(64));
-            $this->setLoginToken($token_login);
-            echo $token_login;
+            if ($password_hash == $input_hash) {
+                $token_login = base64_encode(Common::getRandomKey(64));
+                $this->setLoginToken($token_login);
+                return true;
+            } else {
+                return false;
+            }
         } else {
-            echo 'Login false!';
+            return false;
         }
     }
 
@@ -87,5 +93,5 @@ class User
 
 
 }
-echo (new User)->login('123456').'<br/>';
-echo User::getLoginToken();
+//echo (new User)->login('123456').'<br/>';
+//echo User::getLoginToken();

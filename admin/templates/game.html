@@ -1,4 +1,4 @@
-<h1>Category Manager </h1>
+<h1>Games Manager </h1>
 <div class="divider"></div>
 <a class="waves-effect waves-light btn modal-trigger right" href="#modal1" style="margin: 20px 0;"> Add new<i class="material-icons right">add</i></a>
 <div class="divider clearfix"></div>
@@ -13,13 +13,13 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="x in categories">
+    <tr ng-repeat="x in games">
         <td>{{x.id}}</td>
         <td>{{x.title}}</td>
         <td>{{x.slug}}</td>
         <td>
-            <button class="btn-floating btn-small waves-effect waves-light red" ng-click="editCategory(x.id)"><i class="large material-icons">mode_edit</i></button>
-            <button class="btn-floating btn-small waves-effect waves-light orange" ng-click="deleteCategory(x.id)"><i class="large material-icons">delete</i></button>
+            <button class="btn-floating btn-small waves-effect waves-light red" ng-click="editGame(x.id)"><i class="large material-icons">mode_edit</i></button>
+            <button class="btn-floating btn-small waves-effect waves-light orange" ng-click="deleteGame(x.id)"><i class="large material-icons">delete</i></button>
         </td>
     </tr>
     </tbody>
@@ -28,8 +28,8 @@
 <!-- Modal Structure -->
 <div id="modal1" class="modal">
     <div class="modal-content">
-        <h4>Add/Edit Category</h4>
-        <form ng-submit="submitCategory()">
+        <h4>Add/Edit Game</h4>
+        <form ng-submit="submitGame()">
             <input id="id" name="id" type="hidden" ng-model="form.id">
             <div class="row">
                 <div class="input-field col s12">

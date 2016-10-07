@@ -1,0 +1,41 @@
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1 0 auto;
+}
+@media only screen and (min-width: 980px) {
+    nav {height: 48px; line-height: 48px;}
+}
+section.logo-wrapper {padding: 5px 24px;line-height: 36px;}
+section.logo-wrapper .brand-logo {text-transform: uppercase;}
+section.logo-wrapper .input-field {margin: 0;background: #399c3e;border-radius: 2px; position: relative;}
+section.logo-wrapper .input-field label {top: 50%; margin-top: -10px;transform: none;}
+section.logo-wrapper .input-field label.active {transform: none;color:#000;}
+section.logo-wrapper .input-field label i {color:#FFF;}
+section.logo-wrapper .input-field label.active i {color:#000;}
+section.logo-wrapper .input-field input {width: 350px;margin: 0;border:none;background: 0;height: 36px;border-radius: 2px;transition: color .2s;color: #fff;}
+section.logo-wrapper .input-field .autocomplete-content {position: absolute; top: 145%; left: 0;}
+section.logo-wrapper .input-field .autocomplete-content li img {position: absolute; right: 0;}
+section.logo-wrapper .input-field .autocomplete-content li a {float: left;margin-right: 50px;}
+nav ul a {
+    border-bottom: 2px solid transparent;
+    border-top: 2px solid transparent;
+    color: rgba(255,255,255,.7);
+    display: inline-block;
+    font: 500 14px/44px Roboto,sans-serif;
+    margin: 0;
+    padding: 0 24px;
+    text-transform: uppercase;
+    transition: color .2s;
+}
+nav ul a:hover {color:#FFF;}
+.category-item .game-item {padding: 0.75rem}
+.category-item .item-image {margin-bottom: 0;height: 135px;overflow: hidden;}
+.category-item .item-image img {width: 100%;min-height: 135px;}
+.category-item .item-image a {display: block;}
+.category-item .item-content {padding: 5px;}
+.category-item .item-name {display: block;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}

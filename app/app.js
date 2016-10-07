@@ -106,8 +106,8 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
 })
 .controller('Main', function($scope, GameData) {
     $scope.games = GameData.listAllGame();
-    $scope.title = 'PGame - Play game HTML5';
-    document.querySelector('title').innerHTML = 'PGame - Play game HTML5 for free';
+    $scope.title = 'iZGame - Play game HTML5';
+    document.querySelector('title').innerHTML = 'iZGame - Play game HTML5 for free';
 })
 .controller('Category', function($rootScope, $scope, $routeParams, $location, GameData) {
     var data = GameData.getCategory($routeParams.slug);
@@ -117,7 +117,7 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
         var active = (viewLocation === $location.path());
         return active;
     };
-    $scope.$parent.metatitle = data.title + ' Games - PGAMES';
+    $scope.$parent.metatitle = data.title + ' Games - iZGame.net';
     // document.querySelector('title').innerHTML = data.title;
 })
 .controller('Detail', function($scope, $routeParams, $location, $anchorScroll, GameData, $sce) {
@@ -127,7 +127,7 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
         $scope.iframeSrc = $sce.trustAsResourceUrl('game/' + $routeParams.slug + '/');
         $scope.metatitle = game.title;
         document.querySelector('title').innerHTML = game.title;
-        document.querySelector('meta[property="og:image"]').setAttribute('content', $location.host() + 'game/' + $routeParams.slug + '/thumb.jpg');
+        // document.querySelector('meta[property="og:image"]').setAttribute('content', $location.host() + 'game/' + $routeParams.slug + '/thumb.jpg');
     } else {
         $location.path('/404.html');
     }

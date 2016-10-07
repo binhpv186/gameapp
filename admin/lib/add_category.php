@@ -2,6 +2,9 @@
 $id = isset($_POST['id'])?$_POST['id']:'';
 $title = isset($_POST['title'])?$_POST['title']:'';
 $slug = isset($_POST['slug'])?$_POST['slug']:'';
+$desc = isset($_POST['desc'])?$_POST['desc']:'';
+$meta_title = isset($_POST['meta_title'])?$_POST['meta_title']:'';
+$meta_desc = isset($_POST['meta_desc'])?$_POST['meta_desc']:'';
 if($title && $slug) {
     try {
         $file = dirname(dirname(__DIR__)).'/data/categories.json';
@@ -15,7 +18,13 @@ if($title && $slug) {
             $categories['index'] = $index;
             $method = 'add';
         }
-        $categories['data'][$index] = array('title' => $title, 'slug' => $slug);
+        $categories['data'][$index] = array(
+            'title' => $title,
+            'slug' => $slug,
+            'desc'=>$desc,
+            'meta_title'=>$meta_title,
+            'meta_desc'=>$meta_desc
+        );
         if (!defined('JSON_PRETTY_PRINT')) {
             define('JSON_PRETTY_PRINT', 128);
         }
@@ -24,7 +33,14 @@ if($title && $slug) {
             'method'=>$method,
             'error'=>false,
             'message'=>'save data success',
-            'data'=>array('id'=>$index, 'title' => $title, 'slug' => $slug)
+            'data'=>array(
+                'id'=>$index,
+                'title' => $title,
+                'slug' => $slug,
+                'desc'=>$desc,
+                'meta_title'=>$meta_title,
+                'meta_desc'=>$meta_desc
+            )
         ));
     } catch (Exception $e) {
         echo json_encode(array('error'=>true, 'message'=>$e->getMessage()));

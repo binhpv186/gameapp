@@ -4,68 +4,28 @@
     <base href="/gameapp/">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>{{metatitle || 'PGame - Play game html5'}}</title>
-    <meta name="description" content="{{metadescription || 'Game html5'}}" />
-    <meta property="og:url" content="" />
-    <meta property="og:type" content="article" />
-    <meta property="og:title" content="{{metatitle || 'PGame - Play game html5'}}" />
-    <meta property="og:description" content="{{metadescription || 'Game html5'}}" />
-    <meta property="og:image" content="" />
+    <title>{{metatitle || 'iZGame - Play game html5 for free'}}</title>
+    <meta name="description" content="{{metadescription || 'Play Game html5 for free'}}" />
     <meta name="robots" content="index, follow, noarchive" />
     <meta http-equiv="Cache-control" content="public, max-age=600">
     <!--Import Google Icon Font-->
     <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="assets/css/materialize.min.css"  media="screen,projection"/>
-
-    <style>
-        body {
-            display: flex;
-            min-height: 100vh;
-            flex-direction: column;
-        }
-
-        main {
-            flex: 1 0 auto;
-        }
-        @media only screen and (min-width: 980px) {
-            nav {height: 48px; line-height: 48px;}
-        }
-        section.logo-wrapper {padding: 5px 24px;line-height: 36px;}
-        section.logo-wrapper .brand-logo {text-transform: uppercase;}
-        section.logo-wrapper .input-field {margin: 0;background: #399c3e;border-radius: 2px; position: relative;}
-        section.logo-wrapper .input-field label {top: 50%; margin-top: -10px;transform: none;}
-        section.logo-wrapper .input-field label.active {transform: none;color:#000;}
-        section.logo-wrapper .input-field label i {color:#FFF;}
-        section.logo-wrapper .input-field label.active i {color:#000;}
-        section.logo-wrapper .input-field input {width: 350px;margin: 0;border:none;background: 0;height: 36px;border-radius: 2px;transition: color .2s;color: #fff;}
-        section.logo-wrapper .input-field .autocomplete-content {position: absolute; top: 145%; left: 0;}
-        section.logo-wrapper .input-field .autocomplete-content li img {position: absolute; right: 0;}
-        section.logo-wrapper .input-field .autocomplete-content li a {float: left;margin-right: 50px;}
-        nav ul a {
-            border-bottom: 2px solid transparent;
-            border-top: 2px solid transparent;
-            color: rgba(255,255,255,.7);
-            display: inline-block;
-            font: 500 14px/44px Roboto,sans-serif;
-            margin: 0;
-            padding: 0 24px;
-            text-transform: uppercase;
-            transition: color .2s;
-        }
-        nav ul a:hover {color:#FFF;}
-        .category-item .game-item {padding: 0.75rem}
-        .category-item .item-image {margin-bottom: 0;height: 135px;overflow: hidden;}
-        .category-item .item-image img {width: 100%;min-height: 135px;}
-        .category-item .item-image a {display: block;}
-        .category-item .item-content {padding: 5px;}
-        .category-item .item-name {display: block;white-space: nowrap; overflow: hidden; text-overflow: ellipsis;}
-    </style>
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css"  media="screen,projection"/>
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+        ga('create', 'UA-37633011-9', 'auto');
+        ga('send', 'pageview');
+    </script>
 </head>
 <body id="body">
     <header>
         <section class="hide-on-med-and-down green darken-3 logo-wrapper">
-            <a href="" class="brand-logo white-text text-lighten-4">PGame</a>
+            <a href="" class="brand-logo white-text text-lighten-4">iZGame</a>
             <form class="right">
                 <div class="input-field">
                     <input id="search" type="search" required class="autocomplete">
@@ -75,7 +35,7 @@
         </section>
         <nav class="green darken-3">
             <div class="nav-wrapper">
-                <a href="" class="brand-logo hide-on-med-and-up white-text text-lighten-4">PGAMES</a>
+                <a href="" class="brand-logo hide-on-med-and-up white-text text-lighten-4">iZGame</a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
                 <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">search</i></a>
                 <ul class="left hide-on-med-and-down">
@@ -108,14 +68,14 @@
         <div class="container">
             <div class="row">
                 <div class="col s12">
-                    <h5 class="white-text">Footer Content</h5>
-                    <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+                    <h5 class="white-text">iZGame.net</h5>
+                    <p class="grey-text text-lighten-4">Play game HTML5 for free. Have fun</p>
                 </div>
             </div>
         </div>
         <div class="footer-copyright blue-grey darken-4">
             <div class="container">
-                &copy; 2014 Copyright Text
+                &copy; 2016 Copyright
                 <a class="grey-text text-lighten-4 right">Go top</a>
             </div>
         </div>
