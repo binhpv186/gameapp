@@ -190,9 +190,16 @@ var gameapp = angular.module('gameapp', ['ui.router', 'ngSanitize'])
         listAllGame : function () {
             return data.games;
         },
-
         getGame : function (game) {
             var games = filterFilter(data.games, {slug: game});
+            if(games != undefined && games.length > 0) {
+                return games[0];
+            } else {
+                return false;
+            }
+        },
+        getGameById : function (id) {
+            var games = filterFilter(data.games, {id: id});
             if(games != undefined && games.length > 0) {
                 return games[0];
             } else {
@@ -376,8 +383,11 @@ var gameapp = angular.module('gameapp', ['ui.router', 'ngSanitize'])
         });
     }
     $scope.editGame = function (id) {
-        var editGame = GameData.getCategory(id);
+        // $('select').material_select('destroy');
+        var editGame = GameData.getGameById(id);
+        // console.log(editGame);
         $scope.form = angular.copy(editGame);
+        // $scope.form.category = filterFilter($rootScope.categories, {id: editGame.category})[0];
         $('#modal1').openModal();
     }
     $scope.deleteGame = function (id) {

@@ -20,10 +20,10 @@ class Application
     public function run()
     {
         try {
-            $this->router->parseRoute($this->request);
-            $controller =  'app\\controllers\\'. str_replace('Controller', '', $this->router->getController()).'Controller';
+            $this->parseRoute();
+            $controller =  'app\\controllers\\'. ucfirst(str_replace('Controller', '', $this->getController()).'Controller');
             if(class_exists($controller)) {
-                $action_name = $this->router->getAction().'Action';
+                $action_name = $this->getAction().'Action';
                 $controller = new $controller;
                 if(method_exists($controller, $action_name)) {
                     call_user_func(array($controller, $action_name));
@@ -49,4 +49,19 @@ class Application
     {
         return $this->router;
     }
+	
+	public function parseRoute()
+	{
+		$this->router->parseRoute($this->request);
+	}
+	
+	public function getController()
+	{
+		return $this->getRouter()->getController();
+	}
+	
+	public function getAction()
+	{
+		return $this->getRouter()->getAction();
+	}
 }

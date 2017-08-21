@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <base href="/gameapp/php/">
+    <base href="/">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title><?php echo $this->title; ?> - izgame</title>
@@ -78,7 +78,7 @@
             <a href="" class="brand-logo hide-on-med-and-up white-text text-lighten-4">PGAMES</a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
             <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">search</i></a>
-            <?php \Widget::get('Category'); ?>
+            <?php \app\widgets\Category::widget(); ?>
             <form class="right hide-on-med-and-up">
                 <div class="input-field">
                     <input id="search-mobile" type="search" required>

@@ -45,6 +45,13 @@
             </div>
             <div class="row">
                 <div class="input-field col s12">
+                    <select name="txtcategory" id="txtcategory" ng-model="form.category" ng-options="cat.id as cat.title for cat in categories">
+                    </select>
+                    <label>Category</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
                     <textarea class="materialize-textarea" id="txtdesc" name="txtdesc" ng-model="form.desc"></textarea>
                     <label for="txtdesc" class="active">Description</label>
                 </div>
@@ -69,5 +76,8 @@
     $(document).ready(function(){
         // the "href" attribute of .modal-trigger must specify the modal ID that wants to be triggered
         $('.modal-trigger').leanModal();
+        setTimeout(function() {
+//            $('select').material_select();
+        });
     });
 </script>

@@ -6,7 +6,7 @@ use app\models\Category as CategoryModel;
 
 class Category extends Widget
 {
-    public function run()
+    public function run($params = null)
     {
         $model = new CategoryModel();
         $data = $model->findAll();

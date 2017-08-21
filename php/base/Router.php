@@ -115,9 +115,9 @@ class Router
 
         $matched = false;
         $uri = str_replace('/', '\\', $pathInfo);
-        while($matched === false && $uri !== 'app\\controllers\\.' && $uri != '') {
-            $controller =  'app\\controllers\\' . dirname($uri);
-            if(file_exists(str_replace(array('\\', '/'), DS, ROOT . $controller . '.php'))) {
+        while($matched === false && $uri !== 'app\\controllers\\.' && $uri !== '' && $uri !== '.') {
+            $controller =  'app\\controllers\\' . dirname($uri). 'Controller';
+            if(class_exists($controller)) {
                 $this->_controller = dirname($uri) . 'Controller';
                 $this->_action = basename($uri);
                 $param_str = trim(str_replace(str_replace('\\', '/', $uri), '', $pathInfo), '/');
@@ -139,7 +139,7 @@ class Router
         if($matched === true) {
             return;
         } else {
-            throw new \Exception('Not Found', 404);
+            throw new \Exception('Url Not Found', 404);
         }
     }
 }

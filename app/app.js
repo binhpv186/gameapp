@@ -75,6 +75,7 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
         },
 
         getCategory : function (category) {
+			console.log(data.categories);
             var cat = filterFilter(data.categories, {slug: category});
             var returnData = {title:'Not found!',games:[]};
             if(cat != undefined) {
@@ -92,6 +93,7 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
     }
 })
 .run(function($rootScope, $location, $anchorScroll, GameData) {
+	console.log('Run');
     var init = GameData.init();
     if(init) {
         $rootScope.categories = GameData.listCategory();
@@ -105,11 +107,13 @@ var gameapp = angular.module('gameapp', ['ngRoute', 'ngSanitize'])
     }
 })
 .controller('Main', function($scope, GameData) {
+	console.log('MainController');
     $scope.games = GameData.listAllGame();
     $scope.title = 'iZGame - Play game HTML5';
     document.querySelector('title').innerHTML = 'iZGame - Play game HTML5 for free';
 })
 .controller('Category', function($rootScope, $scope, $routeParams, $location, GameData) {
+	console.log('CategoryController');
     var data = GameData.getCategory($routeParams.slug);
     $scope.data = data;
     $scope.$parent.path = $location.path();
